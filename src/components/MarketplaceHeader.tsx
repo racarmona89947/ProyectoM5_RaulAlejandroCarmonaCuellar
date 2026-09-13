@@ -131,7 +131,7 @@ export function MarketplaceHeader() {
 
       {/* Mobile Search Bar (shows on small screens below the header) */}
       <div className="bg-[var(--royal-violet)] px-4 pb-3 lg:hidden">
-        <div className="relative"><div className="mb-2 flex justify-end"><button aria-expanded={openPanel === 'categories'} aria-haspopup="menu" className="rounded-lg border border-white/35 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white" onClick={() => togglePanel('categories')} type="button">Categorías <span aria-hidden="true">⌄</span></button>{openPanel === 'categories' && <CategoryPanel categories={categories} onClose={() => setOpenPanel(null)} />}</div><form className="flex h-10 items-center rounded-xl bg-white px-4 shadow-inner" onSubmit={handleSearch}>
+        <div className="relative"><div className="mb-2 flex justify-end"><button aria-expanded={openPanel === 'categories'} aria-haspopup="menu" className="rounded-lg border border-white/35 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white" onClick={() => togglePanel('categories')} type="button">Categorías <span aria-hidden="true">⌄</span></button></div>{openPanel === 'categories' && <CategoryPanel categories={categories} mobile onClose={() => setOpenPanel(null)} />}<form className="flex h-10 items-center rounded-xl bg-white px-4 shadow-inner" onSubmit={handleSearch}>
           <label className="sr-only" htmlFor="mobile-search">Buscar productos</label>
           <input className="w-full bg-transparent text-sm text-[var(--text)] outline-none placeholder:text-gray-400" id="mobile-search" onChange={(event) => setSearchTerm(event.target.value)} placeholder="Buscar en NexoMarket" type="search" value={searchTerm} />
             <button className="flex h-full items-center justify-center pl-2 text-gray-500" type="submit">
@@ -147,8 +147,8 @@ export function MarketplaceHeader() {
   </>
 }
 
-function CategoryPanel({ categories, onClose }: { categories: string[]; onClose: () => void }) {
-  return <div className="absolute left-0 top-[calc(100%+0.75rem)] z-50 w-64 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-2 text-[var(--text)] shadow-2xl shadow-black/20" role="menu">
+function CategoryPanel({ categories, mobile = false, onClose }: { categories: string[]; mobile?: boolean; onClose: () => void }) {
+  return <div className={mobile ? 'relative z-50 mb-2 w-full rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-2 text-[var(--text)] shadow-2xl shadow-black/20' : 'absolute left-0 top-[calc(100%+0.75rem)] z-50 w-64 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-2 text-[var(--text)] shadow-2xl shadow-black/20'} role="menu">
     <div className="border-b border-[var(--border)] px-3 pb-2 pt-1">
       <p className="text-xs font-bold uppercase tracking-[0.16em] text-[var(--text-muted)]">Explora por categoría</p>
     </div>
