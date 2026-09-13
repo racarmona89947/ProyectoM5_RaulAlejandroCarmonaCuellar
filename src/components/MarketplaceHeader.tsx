@@ -91,7 +91,7 @@ export function MarketplaceHeader() {
         {/* Right side actions */}
         <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-5">
           {/* Theme toggle */}
-          <button aria-label={theme === 'light' ? 'Activar modo oscuro' : 'Activar modo claro'} className="hidden items-center justify-center rounded-full p-2 text-white hover:bg-white/10 sm:flex" onClick={toggleTheme} type="button">
+          <button aria-label={theme === 'light' ? 'Activar modo oscuro' : 'Activar modo claro'} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full p-1 text-white hover:bg-white/10" onClick={toggleTheme} type="button">
             {theme === 'light' ? <span className="text-lg">☾</span> : <span className="text-lg">☀</span>}
           </button>
 
