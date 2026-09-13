@@ -11,6 +11,7 @@ import { OrdersPage } from '../pages/OrdersPage'
 import { AdminPage } from '../pages/AdminPage'
 import { FavoritesPage } from '../pages/FavoritesPage'
 import { AdminCategoriesPage } from '../pages/AdminCategoriesPage'
+import { NotFoundPage } from '../pages/NotFoundPage'
 
 export function AppRouter() {
   return <Routes>
@@ -34,6 +35,6 @@ export function AppRouter() {
         <Route element={<AdminCategoriesPage />} path="/admin/categories" />
       </Route>
     </Route>
-    <Route element={<Navigate replace to="/" />} path="*" />
+    <Route element={<NotFoundPage />} path="*" />
   </Routes>
 }

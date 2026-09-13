@@ -5,7 +5,8 @@ import { useProducts } from '../features/products/useProducts'
 
 export function CatalogPage() {
   const [searchParams] = useSearchParams()
-  const { categories, category, error, filteredProducts, isLoading, retry, setCategory } = useProducts(searchParams.get('q') ?? '', searchParams.get('category') ?? 'all')
+  const requestedCategory = (searchParams.get('category') ?? 'all').replace(/\/+$/, '') || 'all'
+  const { categories, category, error, filteredProducts, isLoading, retry, setCategory } = useProducts(searchParams.get('q') ?? '', requestedCategory)
 
   return (
     <main className="min-h-screen bg-[var(--page)] text-[var(--text)]">
@@ -35,7 +36,7 @@ export function CatalogPage() {
         </aside>
 
         {/* Product Grid */}
-        <div className="flex-1">
+        <div className="min-w-0 flex-1">
           <div className="mb-6 flex flex-col gap-4 border-b border-[var(--border)] pb-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="font-[Space_Grotesk] text-3xl font-bold text-[var(--text)]">
@@ -69,7 +70,7 @@ export function CatalogPage() {
           )}
           
           {!isLoading && !error && filteredProducts.length > 0 && (
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}

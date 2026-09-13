@@ -110,6 +110,10 @@ export function MarketplaceHeader() {
             )}
           </div>
 
+          <div className="flex items-center md:hidden">
+            {firebaseUser ? <Link aria-label="Mi cuenta" className="rounded-lg px-2 py-1 text-xs font-bold text-white hover:bg-white/10" to="/account">Cuenta</Link> : <button className="rounded-lg px-2 py-1 text-xs font-bold text-white hover:bg-white/10" onClick={() => setAuthModal('login')} type="button">Ingresar</button>}
+          </div>
+
           {firebaseUser && <>
           {/* Favorites */}
           <button aria-expanded={openPanel === 'favorites'} aria-label="Ver favoritos" className="relative flex items-center justify-center rounded-full p-2 text-white transition-transform hover:scale-110 hover:bg-white/10" onClick={() => togglePanel('favorites')} type="button">
@@ -127,7 +131,7 @@ export function MarketplaceHeader() {
 
       {/* Mobile Search Bar (shows on small screens below the header) */}
       <div className="bg-[var(--royal-violet)] px-4 pb-3 lg:hidden">
-        <div className="relative"><form className="flex h-10 items-center rounded-xl bg-white px-4 shadow-inner" onSubmit={handleSearch}>
+        <div className="relative"><div className="mb-2 flex justify-end"><button aria-expanded={openPanel === 'categories'} aria-haspopup="menu" className="rounded-lg border border-white/35 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white" onClick={() => togglePanel('categories')} type="button">Categorías <span aria-hidden="true">⌄</span></button>{openPanel === 'categories' && <CategoryPanel categories={categories} onClose={() => setOpenPanel(null)} />}</div><form className="flex h-10 items-center rounded-xl bg-white px-4 shadow-inner" onSubmit={handleSearch}>
           <label className="sr-only" htmlFor="mobile-search">Buscar productos</label>
           <input className="w-full bg-transparent text-sm text-[var(--text)] outline-none placeholder:text-gray-400" id="mobile-search" onChange={(event) => setSearchTerm(event.target.value)} placeholder="Buscar en NexoMarket" type="search" value={searchTerm} />
             <button className="flex h-full items-center justify-center pl-2 text-gray-500" type="submit">
