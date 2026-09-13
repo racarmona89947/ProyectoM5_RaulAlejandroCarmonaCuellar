@@ -71,7 +71,7 @@ export function MarketplaceHeader() {
         <Link className="shrink-0 font-[Space_Grotesk] text-2xl font-bold tracking-tight text-white hover:opacity-90" to="/">NexoMarket</Link>
 
         {/* Categorias Button & Search Bar (Grouped for desktop) */}
-        <div className="hidden flex-1 items-center gap-3 lg:flex">
+        <div className="hidden min-w-0 flex-1 items-center gap-3 md:flex">
           <div className="relative">
             <button aria-expanded={openPanel === 'categories'} aria-haspopup="menu" className="flex h-10 items-center gap-2 rounded-xl border border-white/35 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/15" onClick={() => togglePanel('categories')} type="button">
               Categorías <span aria-hidden="true" className={`text-xs transition-transform ${openPanel === 'categories' ? 'rotate-180' : ''}`}>⌄</span>
@@ -96,7 +96,7 @@ export function MarketplaceHeader() {
           </button>
 
           {/* Auth / Profile */}
-          <div className="hidden flex-col items-start justify-center md:flex">
+          <div className="hidden flex-col items-start justify-center lg:flex">
             {firebaseUser ? (
               <Link className="group flex flex-col items-start leading-tight" to="/account">
                 <span className="text-xs text-white/80">Hola,</span>
@@ -110,7 +110,7 @@ export function MarketplaceHeader() {
             )}
           </div>
 
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center lg:hidden">
             {firebaseUser ? <Link aria-label="Mi cuenta" className="rounded-lg px-2 py-1 text-xs font-bold text-white hover:bg-white/10" to="/account">Cuenta</Link> : <button className="rounded-lg px-2 py-1 text-xs font-bold text-white hover:bg-white/10" onClick={() => setAuthModal('login')} type="button">Ingresar</button>}
           </div>
 
@@ -130,8 +130,8 @@ export function MarketplaceHeader() {
       </div>
 
       {/* Mobile Search Bar (shows on small screens below the header) */}
-      <div className="bg-[var(--royal-violet)] px-4 pb-3 lg:hidden">
-        <div className="relative"><div className="mb-2 flex justify-end"><button aria-expanded={openPanel === 'categories'} aria-haspopup="menu" className="rounded-lg border border-white/35 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white" onClick={() => togglePanel('categories')} type="button">Categorías <span aria-hidden="true">⌄</span></button></div>{openPanel === 'categories' && <CategoryPanel categories={categories} mobile onClose={() => setOpenPanel(null)} />}<form className="flex h-10 items-center rounded-xl bg-white px-4 shadow-inner" onSubmit={handleSearch}>
+      <div className="bg-[var(--royal-violet)] px-4 pb-3 md:hidden">
+        <div className="relative"><div className="mb-2 flex justify-start"><button aria-expanded={openPanel === 'categories'} aria-haspopup="menu" className="rounded-lg border border-white/35 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white" onClick={() => togglePanel('categories')} type="button">Categorías <span aria-hidden="true">⌄</span></button></div>{openPanel === 'categories' && <CategoryPanel categories={categories} mobile onClose={() => setOpenPanel(null)} />}<form className="flex h-10 items-center rounded-xl bg-white px-4 shadow-inner" onSubmit={handleSearch}>
           <label className="sr-only" htmlFor="mobile-search">Buscar productos</label>
           <input className="w-full bg-transparent text-sm text-[var(--text)] outline-none placeholder:text-gray-400" id="mobile-search" onChange={(event) => setSearchTerm(event.target.value)} placeholder="Buscar en NexoMarket" type="search" value={searchTerm} />
             <button className="flex h-full items-center justify-center pl-2 text-gray-500" type="submit">
