@@ -10,6 +10,6 @@ export default defineConfig({
     css: true,
     include: ['src/test/**/*.test.{ts,tsx}'],
     pool: 'threads',
-    maxWorkers: 1,
+    isolate: false,
   },
 })
