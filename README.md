@@ -316,30 +316,6 @@ El deployment actual de Vercel esta en estado `Ready` y publica `/api/create-ord
 
 ---
 
-## Evaluacion de rubric
-
-Estimacion basada en el codigo implementado y en las validaciones ejecutadas:
-
-| Area | Estado | Estimacion |
-|---|---|---:|
-| Arquitectura React + TypeScript | Cumplido | 95% |
-| Autenticacion y roles | Cumplido | 90% |
-| Catalogo y filtros | Cumplido | 95% |
-| Carrito y cantidades | Cumplido | 95% |
-| Checkout e inventario | Implementado, falta prueba manual completa | 90% |
-| Ordenes y estados | Cumplido en codigo | 90% |
-| Panel admin CRUD | Cumplido | 90% |
-| Upload S3 | Implementado, falta confirmar prueba real con AWS | 85% |
-| Responsive y estados de UI | Cumplido | 90% |
-| Testing | Parcial: 6 tests, faltan mocks de Firebase/AWS y auth hooks | 65% |
-| Seguridad | Implementada, falta auditoria final de AWS | 85% |
-| Deploy y produccion | Deploy listo, faltan pruebas autenticadas finales | 80% |
-| Documentacion y bitacora IA | Cumplido | 95% |
-
-**Estimacion tecnica global: 87%.**
-
-**Estimacion conservadora para entrega academica: 80-85%**, porque la prueba real autenticada de upload, checkout, estados admin y configuracion final de S3 aun depende de las cuentas externas.
-
 ---
 
 ## Bitacora de IA
@@ -363,19 +339,6 @@ Se corrigieron redirecciones de login, navegacion responsive, modo claro/oscuro,
 ### Entrada 5: pruebas y documentacion
 
 Se organizaron tests en unitarios e integracion, se agrego el flujo del carrito y se documento el proceso de seed, deploy y seguridad.
-
----
-
-## Estado final
-
-El proyecto esta listo para continuar con la verificacion final de cuentas externas:
-
-- Firebase Rules: desplegadas.
-- Firestore seed: ejecutado.
-- Vercel: deployment `Ready`.
-- Functions: publicadas y protegidas.
-- Tests, typecheck y build: correctos.
-- Pendiente manual: prueba autenticada de S3, checkout, estados admin y CORS real.
 
 ---
 
