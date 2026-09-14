@@ -14,7 +14,8 @@
     "test:integration": "vitest run src/test/integration",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "firebase:rules": "firebase deploy --only firestore:rules"
+    "firebase:rules": "firebase deploy --only firestore:rules",
+    "seed:products": "node --env-file=.env scripts/seed-products.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1127.0",

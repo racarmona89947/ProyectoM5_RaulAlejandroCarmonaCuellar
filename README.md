@@ -126,6 +126,24 @@ Colecciones previstas: `users`, `products`, `categories`, `carts`, `favorites` y
 
 La validación visual local mostró `Database '(default)' not found` desde Firebase. Antes de probar catálogo, usuarios, categorías u órdenes, crea la base de datos Firestore en Firebase Console para el proyecto `proyectom5-1ca04`, selecciona una región y publica las reglas con `npm run firebase:rules` después de autenticar el CLI.
 
+## Seed de productos
+
+El seed está en `scripts/seed-products.mjs` y carga 20 productos en siete categorías. Usa IDs deterministas y `merge`, por lo que puede ejecutarse nuevamente sin duplicar documentos.
+
+Las imágenes se guardan inicialmente como `images: []`. Luego puedes editar cada producto en Firestore y colocar una URL en el arreglo:
+
+```text
+images: ["https://tu-cdn-o-bucket/products/laptop.jpg"]
+```
+
+Ejecuta el seed después de crear Firestore y configurar las variables server-only en `.env`:
+
+```bash
+npm run seed:products
+```
+
+El script nunca usa credenciales `VITE_` y no debe ejecutarse en el navegador.
+
 ## S3 y Vercel Functions
 
 Flujo previsto:
