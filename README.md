@@ -286,6 +286,11 @@ src/test/
     App.test.tsx
     MarketplaceHeader.test.tsx
     cartReducer.test.ts
+    categoryService.test.ts
+    orderService.test.ts
+    routeGuards.test.tsx
+    ToastContext.test.tsx
+    userDataService.test.ts
   integration/
     CartContext.test.tsx
 ```
@@ -311,7 +316,7 @@ Cobertura funcional actual:
 - Actualizar cantidad.
 - Eliminar producto.
 
-La suite actual pasa con 4 archivos y 6 casos.
+La suite actual pasa con 9 archivos y 21 casos. La cobertura se genera con `npm run test:coverage` y cubre reducer, guards, Toast, validaciones del checkout, categorias y persistencia Firestore mockeada.
 
 ---
 

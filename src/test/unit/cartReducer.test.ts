@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { cartReducer, getCartTotal, initialCartState } from '../../features/cart/cartReducer'
+import { cartReducer, getCartCount, getCartTotal, initialCartState } from '../../features/cart/cartReducer'
 
 const item = { productId: 'p-1', name: 'Auriculares', price: 100, image: '', quantity: 1 }
 
@@ -22,5 +22,12 @@ describe('cartReducer', () => {
 
   it('calculates total from price and quantity', () => {
     expect(getCartTotal([{ ...item, quantity: 3 }])).toBe(300)
+  })
+
+  it('counts all quantities and preserves unknown actions', () => {
+    const state = { items: [{ ...item, quantity: 2 }, { ...item, productId: 'p-2', quantity: 4 }] }
+
+    expect(getCartCount(state.items)).toBe(6)
+    expect(cartReducer(state, { type: 'UNKNOWN' } as never)).toBe(state)
   })
 })
