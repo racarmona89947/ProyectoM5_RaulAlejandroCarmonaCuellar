@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import type { CartAction, CartState } from './cartReducer'
+import type { CartAction, CartState } from '../../features/cart/cartReducer'
 
 export interface CartContextValue extends CartState {
   total: number

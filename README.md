@@ -63,7 +63,13 @@ UI React
 ```text
 src/
   components/       UI reutilizable, header, formularios y tarjetas
-  features/         auth, cart, favorites, products, theme y toast
+  contexts/         Providers, stores y hooks de estado compartido
+    auth/           sesion y perfil de usuario
+    cart/           carrito por usuario
+    favorites/      favoritos por usuario
+    theme/          modo claro/oscuro
+    toast/          notificaciones globales
+  features/         logica de dominio, como reducer del carrito y productos
   pages/            catalogo, checkout, ordenes y panel admin
   routes/           router y guards de autenticacion/rol
   services/         Firebase, productos, ordenes, categorias y datos de usuario
@@ -207,6 +213,18 @@ Las reglas de `firestore.rules` ya fueron compiladas y desplegadas correctamente
 5. Cerrar sesión y volver a iniciar sesión.
 
 El registro público nunca permite elegir el rol `admin`.
+
+### Organización de contextos
+
+Los estados compartidos de la aplicación están agrupados en `src/contexts`:
+
+- `contexts/auth`: sesión, perfil y rol.
+- `contexts/cart`: carrito, cantidades y persistencia por usuario.
+- `contexts/favorites`: favoritos y persistencia por usuario.
+- `contexts/theme`: modo claro y oscuro.
+- `contexts/toast`: notificaciones globales.
+
+La lógica pura del carrito permanece en `features/cart/cartReducer.ts`, porque no es un Context sino una función de dominio independiente y testeable.
 
 ---
 
