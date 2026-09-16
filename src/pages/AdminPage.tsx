@@ -474,31 +474,61 @@ function OrdersSection({
         <div className="mt-5 space-y-3">
           {orders.map((order) => (
             <article
-              className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm"
+              className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm"
               key={order.id}
             >
-              <div>
-                <p className="font-semibold">Orden {order.id.slice(0, 8)}</p>
-                <p className="mt-1 text-sm text-[var(--text-muted)]">
-                  {order.userId} · ${order.total.toLocaleString("es-AR")}
-                </p>
-                <p className="mt-1 text-xs text-[var(--text-muted)]">
-                  {order.items.length} productos
-                </p>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p className="font-semibold">Orden {order.id.slice(0, 8)}</p>
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">
+                    Cliente: {order.userId}
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-[var(--royal-violet)]">
+                    Total: ${order.total.toLocaleString("es-AR")}
+                  </p>
+                </div>
+                <select
+                  className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2"
+                  onChange={(event) =>
+                    onStatusChange(order.id, event.target.value as OrderStatus)
+                  }
+                  value={order.status}
+                >
+                  {orderStatuses.map((status) => (
+                    <option key={status} value={status}>
+                      {orderStatusLabels[status]}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <select
-                className="rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2"
-                onChange={(event) =>
-                  onStatusChange(order.id, event.target.value as OrderStatus)
-                }
-                value={order.status}
-              >
-                {orderStatuses.map((status) => (
-                  <option key={status} value={status}>
-                    {orderStatusLabels[status]}
-                  </option>
-                ))}
-              </select>
+              <div className="mt-5 border-t border-[var(--border)] pt-4">
+                <p className="mb-3 text-sm font-bold text-[var(--text)]">
+                  Productos ({order.items.length})
+                </p>
+                <div className="space-y-3">
+                  {order.items.map((item) => (
+                    <div
+                      className="flex items-center gap-3 rounded-xl bg-[var(--surface-muted)] p-3"
+                      key={`${order.id}-${item.productId}`}
+                    >
+                      <img
+                        alt=""
+                        className="h-14 w-14 rounded-lg bg-[var(--surface)] object-contain"
+                        src={item.image || "/product-placeholder.svg"}
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold">{item.name}</p>
+                        <p className="mt-1 text-xs text-[var(--text-muted)]">
+                          Cantidad: {item.quantity} · Unitario: ${item.price.toLocaleString("es-AR")}
+                        </p>
+                      </div>
+                      <p className="shrink-0 text-sm font-bold text-[var(--royal-violet)]">
+                        ${(item.price * item.quantity).toLocaleString("es-AR")}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </article>
           ))}
           {orders.length === 0 && (
