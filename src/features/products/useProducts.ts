@@ -14,6 +14,11 @@ export function useProducts(initialSearch = '', initialCategory = 'all') {
   const [reloadKey, setReloadKey] = useState(0)
 
   useEffect(() => {
+    setSearchTerm(initialSearch)
+    setCategory(initialCategory)
+  }, [initialCategory, initialSearch])
+
+  useEffect(() => {
     const timeoutId = window.setTimeout(() => setDebouncedSearch(searchTerm.trim().toLowerCase()), 350)
 
     return () => window.clearTimeout(timeoutId)

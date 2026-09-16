@@ -1,21 +1,41 @@
 import { ProductCard } from "../components/ProductCard";
 import { MarketplaceHeader } from "../components/MarketplaceHeader";
 import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 import { useProducts } from "../features/products/useProducts";
 
 export function CatalogPage() {
   const [searchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
+  const [minimumPrice, setMinimumPrice] = useState(0);
+  const [maximumPrice, setMaximumPrice] = useState(0);
+  const [onlyAvailable, setOnlyAvailable] = useState(false);
   const requestedCategory =
     (searchParams.get("category") ?? "all").replace(/\/+$/, "") || "all";
   const {
     categories,
     category,
     error,
-    filteredProducts,
+    filteredProducts: catalogProducts,
     isLoading,
     retry,
     setCategory,
   } = useProducts(searchParams.get("q") ?? "", requestedCategory);
+
+  const filteredProducts = catalogProducts.filter((product) => {
+    const matchesMinimum = minimumPrice <= 0 || product.price >= minimumPrice;
+    const matchesMaximum = maximumPrice <= 0 || product.price <= maximumPrice;
+    const matchesAvailability = !onlyAvailable || product.stock > 0;
+    return matchesMinimum && matchesMaximum && matchesAvailability;
+  });
+
+  function handleCategoryChange(nextCategory: string) {
+    const nextParams = new URLSearchParams(searchParams);
+    if (nextCategory === "all") nextParams.delete("category");
+    else nextParams.set("category", nextCategory);
+    setSearchParams(nextParams);
+    setCategory(nextCategory);
+  }
 
   return (
     <main className="min-h-screen bg-[var(--page)] text-[var(--text)]">
@@ -37,13 +57,21 @@ export function CatalogPage() {
                         ? "font-bold text-[var(--royal-violet)]"
                         : "text-[var(--text-muted)] hover:text-[var(--royal-violet)]"
                     }`}
-                    onClick={() => setCategory(option)}
+                    onClick={() => handleCategoryChange(option)}
                   >
                     {option === "all" ? "Todas las categorías" : option}
                   </button>
                 </li>
               ))}
             </ul>
+            <div className="mt-6 border-t border-[var(--border)] pt-5">
+              <h3 className="font-[Space_Grotesk] text-base font-bold">Precio</h3>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <input aria-label="Precio mínimo" className="min-w-0 rounded-lg border border-[var(--border)] bg-transparent px-2 py-2 text-sm" min="0" onChange={(event) => setMinimumPrice(Number(event.target.value))} placeholder="Mínimo" type="number" value={minimumPrice || ""} />
+                <input aria-label="Precio máximo" className="min-w-0 rounded-lg border border-[var(--border)] bg-transparent px-2 py-2 text-sm" min="0" onChange={(event) => setMaximumPrice(Number(event.target.value))} placeholder="Máximo" type="number" value={maximumPrice || ""} />
+              </div>
+              <label className="mt-4 flex items-center gap-2 text-sm text-[var(--text-muted)]"><input checked={onlyAvailable} onChange={(event) => setOnlyAvailable(event.target.checked)} type="checkbox" /> Solo disponibles</label>
+            </div>
           </div>
         </aside>
 
